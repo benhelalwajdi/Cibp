@@ -23,6 +23,9 @@ dependencies:
   splashscreen: ^1.3.5
   cupertino_icons: ^0.1.2
   google_fonts: ^0.3.10
+  auto_size_text: ^2.0.2
+  email_validator: '^2.1.16'
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -33,6 +36,10 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
+  flutter_driver:
+    sdk: flutter
+  bdd_widget_test: ^1.2.1
+  build_runner: ^2.3.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
