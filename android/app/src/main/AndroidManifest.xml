@@ -4,6 +4,8 @@
         android:label="helloworld"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        
+            <uses-permission android:name="android.permission.INTERNET"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -21,7 +23,6 @@
               android:resource="@style/NormalTheme"
               />
             
-            <uses-permission android:name="android.permission.INTERNET"/>
             
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
