@@ -1,10 +1,11 @@
 import 'dart:convert';
 
+import 'package:CIBP/Album.dart';
 import 'package:CIBP/CustomDialog.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -77,52 +78,8 @@ class _LoginState extends State<Login> {
               decoration: BoxDecoration(
                   color: Colors.green, borderRadius: BorderRadius.circular(20)),
               child: TextButton(
-                onPressed: () async {
-                  var url =
-                      "http://stalk.us-east-1.elasticbeanstalk.com/access/signIn";
-                  var body = jsonEncode({
-                    "username": user_name.text.toString(),
-                    "password": password.text.toString(),
-                    "apikey":
-                        "ZFfewRnTK6UZZ7ef9WyUNVK2jy6BtK1mFyb45Kuc0KxUNzlTpTeqLUlb6EWmIpD0I1JkhDo6zmr4ouLCgXNR6LAURz0LqYV9OdNcNOhiv7XnRcNrMwM1gmV6ADTmKdDG"
-                  });
-                  //print("Body: " + body);
-
-                  await http
-                      .post(url,
-                          headers: {"Content-Type": "application/json"},
-                          body: body)
-                      .then((http.Response response) async {
-                    print("Response status : ${response.statusCode}");
-                    print("Response contentLength : ${response.contentLength}");
-                    print("Response headers : ${response.headers}");
-                    print("Response request :${response.request}");
-                    print("Response body : ${response.body}");
-
-                    String body = response.body;
-                    var parsedJson = json.decode(body);
-                    if (parsedJson['success'] as bool == true) {
-                      var user = parsedJson['user'];
-                      print(true);
-                    }
-                    ;
-                  }); /*final bool _isValid = EmailValidator.validate(user_name.text);
-                  if (_isValid == false) {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) => CustomDialog(
-                              title:
-                                  "Endereço de email invalido \n عنوان البريد الإلكتروني غير صالح",
-                              description:
-                                  "يرجى التحقق من عنوان البريد الإلكتروني الخاص بك\n Por favor, verifique seu endereço de e-mail",
-                              primaryButtonText: "Create My Account",
-                              primaryButtonRoute: "/signUp",
-                              secondaryButtonText: "Maybe Later",
-                              secondaryButtonRoute: "/home",
-                            ));
-                  } else {
-                    //http://stalk.us-east-1.elasticbeanstalk.com/access/
-                  }*/
+                onPressed: () {
+                  login(user_name.text.toString(), password.text.toString());
                 },
                 child: Text(
                   'Conecte-se \n تسجيل الدخول',
@@ -157,6 +114,24 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  void login(String email, password) async {
+    try {
+      Response response = await post(
+          Uri.parse(
+              'http://stalk.us-east-1.elasticbeanstalk.com/access/signIn'),
+          body: {
+            'username': email,
+            'password': password,
+            'apikey':
+                'ZFfewRnTK6UZZ7ef9WyUNVK2jy6BtK1mFyb45Kuc0KxUNzlTpTeqLUlb6EWmIpD0I1JkhDo6zmr4ouLCgXNR6LAURz0LqYV9OdNcNOhiv7XnRcNrMwM1gmV6ADTmKdDG'
+          });
+
+      print('failed');
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   Future<void> _launchUrl() async {
